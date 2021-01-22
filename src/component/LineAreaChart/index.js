@@ -77,7 +77,6 @@ function LineAreaChart(props) {
       <XAxis
         tickSizeOuter={0}
         tickSizeInner={0}
-        tickFormat={xTickFormatHandler}
         tickValues={xAxisTicks}
         style={{
           line: {
@@ -89,7 +88,6 @@ function LineAreaChart(props) {
       <YAxis
         tickSizeInner={0}
         tickSizeOuter={0}
-        tickFormat={yTickFormatHandler}
         tickValues={yAxisTicks}
         style={{
           line: {
