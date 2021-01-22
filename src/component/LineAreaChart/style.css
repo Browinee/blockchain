@@ -1,3 +1,3 @@
-.G {
-  background: red;
+.XAxisPeriodStart, .XAxisPeriodEnd > .rv-xy-plot__axis__line {
+  /* stroke: transparent; */
 }
