@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { ThemeProvider } from 'styled-components'
 import LineAreaChart from "./component/LineAreaChart";
 const ChartData = {
@@ -18,7 +18,7 @@ const ChartData = {
   yAxisPeriodStart: 50,
   yAxisPeriodEnd: 250,
   xAxisLatestValueRefereceLine: 100,
-  xMax: 15,
+  xMax: 100,
   yMax: 30,
   periodStart: [6],
   periodStop: [10],
@@ -31,16 +31,21 @@ const ThemeConfig = {
 
 function App() {
   const [chartData, setChart] = useState(ChartData);
+  // const startIndex = useRef(11);
   // useEffect(() => {
   //   const id = setInterval(() => {
-  //     let i = 11;
   //     setChart(old => {
-  //       i += 1;
+  //        const newI = startIndex.current + 1;
   //       const newData = [...old.data];
-  //       newData.push({x: i, y: Math.random() * 30});
+  //       console.log("newData", newData);
+  //       newData.push({x:newI , y: Math.random() * 30});
+  //       const xAxisTicks = [...old.xAxisTicks];
+  //       xAxisTicks.push(newI);
+  //       startIndex.current = newI;
   //       return {
   //         ...old,
   //         data: newData,
+  //         xAxisTicks,
   //       }
   //     })
   //   }, 2000);
