@@ -18,10 +18,10 @@ const ChartData = {
   yAxisPeriodStart: 50,
   yAxisPeriodEnd: 250,
   xAxisLatestValueRefereceLine: 100,
-  xMax: 100,
+  xMax: 30,
   yMax: 30,
   periodStart: [6],
-  periodStop: [10],
+  periodStop: [25],
 };
 const ThemeConfig = {
   zIndex: {

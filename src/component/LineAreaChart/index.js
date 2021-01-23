@@ -15,15 +15,19 @@ import "react-vis/dist/style.css";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import "./style.css";
+import up from "./images/up.png";
+import down from "./images/down.png";
 
 const config = {
   circleSize: [2],
-  chartWidth: 800,
+  chartWidth: 500,
   chartHeight: 550,
   offset: {
     markerOffset: 10,
     periodHeightOffset: 50,
     referenceOffset: 50,
+    investClickerUpOffset: 25,
+    investClickerDownOffset: 55,
   },
 };
 
@@ -35,14 +39,15 @@ const StyledInvestClickArea = styled.div`
   top: ${(props) => props.position.top}px;
   left: ${(props) => props.position.left}px;
   z-index: ${(props) => props.theme.zIndex.investClickArea};
+
 `;
 
 const StyledClick = styled.div`
-  width: 20px;
-  height: 20px;
-  border: 1px solid;
+  width: 27px;
+  height: 27px;
   margin-bottom: 15px;
   cursor: pointer;
+  background-image: url(${props => props.up ? up : down});
 `;
 function LineAreaChart(props) {
   const {
@@ -62,9 +67,9 @@ function LineAreaChart(props) {
     circleSize,
     chartWidth,
     chartHeight,
-    offset: { markerOffset, periodHeightOffset, referenceOffset },
+    offset: { markerOffset, periodHeightOffset, referenceOffset, investClickerUpOffset, investClickerDownOffset },
   } = config;
-  const xTickFormatHandler = (v) => `Start: 06${v}`;
+  const xTickFormatHandler = (v, status) => `${status}: 06${v}`;
   const yTickFormatHandler = (v) => v;
   const yAxisPeriodTitle = (position, value) => {
     return `${position}: ${value}`;
@@ -77,8 +82,8 @@ function LineAreaChart(props) {
   const getReferenceLinePosition = () => {
     const marker = document.querySelector(".mark-series > circle");
     if (marker) {
-      const cy = +marker.attributes.cy.value - 16;
-      const cx = +marker.attributes.cx.value + 55;
+      const cy = +marker.attributes.cy.value - investClickerUpOffset;
+      const cx = +marker.attributes.cx.value + investClickerDownOffset;
       setInvestPosition({
         top: cy,
         left: cx,
@@ -105,8 +110,8 @@ function LineAreaChart(props) {
   return (
     <StyledLineAreaChart>
       <StyledInvestClickArea position={investClickPosition}>
-        <StyledClick>High</StyledClick>
-        <StyledClick>Low</StyledClick>
+        <StyledClick up />
+        <StyledClick down />
       </StyledInvestClickArea>
       <XYPlot height={chartHeight} width={chartWidth}>
         {/* 用AreaSeries畫出背景，要放在第一個 */}
@@ -151,7 +156,7 @@ function LineAreaChart(props) {
           className="XAxisPeriodStart"
           tickSizeOuter={0}
           tickSizeInner={periodHeight}
-          tickFormat={xTickFormatHandler}
+          tickFormat={(v) => xTickFormatHandler(v, "Start")}
           tickValues={periodStart}
           hideLine
           style={{
@@ -165,7 +170,7 @@ function LineAreaChart(props) {
           className="XAxisPeriodEnd"
           tickSizeOuter={0}
           tickSizeInner={periodHeight}
-          tickFormat={xTickFormatHandler}
+          tickFormat={(v) => xTickFormatHandler(v, "Stop")}
           tickValues={periodStop}
           position="start"
           hideLine
