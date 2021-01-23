@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-
+import { ThemeProvider } from 'styled-components'
 import LineAreaChart from "./component/LineAreaChart";
 const ChartData = {
   data: [
@@ -23,6 +23,12 @@ const ChartData = {
   periodStart: [6],
   periodStop: [10],
 };
+const ThemeConfig = {
+  zIndex: {
+    investClickArea: 10
+  }
+};
+
 function App() {
   const [chartData, setChart] = useState(ChartData);
   // useEffect(() => {
@@ -32,28 +38,21 @@ function App() {
   //       i += 1;
   //       const newData = [...old.data];
   //       newData.push({x: i, y: Math.random() * 30});
-  //       for (let j = 1 ; j <4; j++){
-  //         i+=1;
-  //         newData.push({x: i, y: null})
-
-  //       }
-  //       console.log("newData", newData);
-  //       const newXAxisTicks = [...old.xAxisTicks];
-  //       newXAxisTicks.push(i);
   //       return {
   //         ...old,
   //         data: newData,
-  //         xAxisTicks:newXAxisTicks,
   //       }
   //     })
-  //   }, 20000)
+  //   }, 2000);
   //   return () => {
   //     clearInterval(id);
   //   }
   // }, []);
   return (
     <div className="App">
-      <LineAreaChart chartData={chartData} />
+      <ThemeProvider theme={ThemeConfig}>
+        <LineAreaChart chartData={chartData} highHandler={() => {}} lowHandler={() => {}}/>
+      </ThemeProvider>
     </div>
   );
 }
