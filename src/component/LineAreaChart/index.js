@@ -95,7 +95,7 @@ function LineAreaChart(props) {
     setPeriodHeight(chartHeight - periodHeightOffset);
   }, [chartHeight]);
   useEffect(() => {
-    setPeriodHeight(chartWidth - referenceOffset);
+    setPeriodWidth(chartWidth - referenceOffset);
   }, [chartWidth]);
   useEffect(() => {
     getReferenceLinePosition();
@@ -146,7 +146,7 @@ function LineAreaChart(props) {
           }}
         />
         <LineSeries stroke="#D98C14" data={data} />
-        {/* 為了畫出配合x軸畫出剩餘空白的部分*/}
+        {/* 畫出區間線 */}
         <XAxis
           className="XAxisPeriodStart"
           tickSizeOuter={0}
